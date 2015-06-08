@@ -1,0 +1,56 @@
+/*
+ * noService Sass - v0.1.0
+ *
+ * The complimentary scss for noService JS
+ */
+ 
+
+.noservice {
+    position:relative;
+    cursor:pointer;
+}
+
+.tt {
+    width:240px;
+    padding:8px;
+    height:auto;
+    background-color:#ffffff;
+    border:2px solid #BBBBBB;
+    border-radius:4px;
+    position:absolute;  
+    top:115%; 
+    left:-50%;
+    color:#363535;
+    display:none;
+    transition:all ease-out 1.2s;
+    
+    &:after, 
+    &:before {
+        bottom: 100%;
+        left: 45%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+    
+    &:after {
+        border-color: rgba(207, 207, 207, 0);
+        border-bottom-color: #CFCFCF;
+        border-width: 4px;
+        margin-left: -4px;
+    }
+    
+    &:before {
+        border-color: rgba(187, 187, 187, 0);
+        border-bottom-color: #BBBBBB;
+        border-width: 6px;
+        margin-left: -6px;
+    }
+}
+
+.active {
+    display:block;   
+}
