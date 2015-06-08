@@ -4,7 +4,7 @@ On July 1st 2015 OFCOM are bringing into force new regulations regarding 'Servic
 
 > Calls cost 20p per minute from a BT landline. Other landlines may vary and calls from mobiles may cost considerably more.
 
-is no longer valid! You must tell customers exactly how much you charge the for calling the number.
+is no longer valid! You must tell customers exactly how much you charge for calling the number.
 
 To make life easier, this simple jQuery plugin allows you to display the cost of calling the number in a tool tip. 
 
