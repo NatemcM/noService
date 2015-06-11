@@ -1,12 +1,12 @@
 /*
- * noService - v0.1.0
+ * noService - v0.1.2
  * 
  * Author: Nathanael McMillan (@nathanael_mcm)
  * noSerice is a simple tooltip/ message alert plugin 
  * to help businesses stay legal when the new OFCOM
  * regulations come into play.
  *
- * Version: 0.1.0
+ * Version: 0.1.2
  * Under MIT License
  *
  * Thanks to jQuery-boilerplate for helping with the
@@ -27,12 +27,13 @@
 		// Create the defaults once
 		var pluginName = "noService",
 				defaults = {
-                    noservice_class: 'noservice',
-                    message: "Calls to this number cost 20p plus your phone company's access charge.",
-                    tooltip_class: 'tt',
                     activeClass: "active",
+                    breakpoint: 1140,
+                    message: "Calls to this number are free from a BT landline and cost bewteen 2-8p p/m on other landlines plus your phone company's access charge. Calls from Mobiles cost between 20-40p p/m plus your standard network rate.",
                     message_container: 'span',
-                    take_note: '*'
+                    noservice_class: 'noservice',
+                    take_note: '*',
+                    tooltip_class: 'ns_tt'
 		};
 
 		// The actual plugin constructor
@@ -46,36 +47,54 @@
 				this.init();
 		}
 
+
+////// this.settings.noservice_class 
+
+
 		// Avoid Plugin.prototype conflicts
 		$.extend(NoService.prototype, {
 				init: function () {
-                    
-                    // Add the tool tip container class to the element and 
-                    // create a new element containing the tool tip and message
-                    this.$element.addClass(this.settings.noservice_class)
-                    .append(this.settings.take_note + '<'+ 
-                            this.settings.message_container +
-                            ' class="'+ this.settings.tooltip_class +'">'+ 
-                               this.settings.message +'</'+ this.settings.message_container +
-                    '>');
-                               
-                    return this.showToolTip();
-                    
+                      
+                        // Add the tool tip container class to the element and 
+                        // create a new element containing the tool tip and message
+                        this.$element.addClass(this.settings.noservice_class)
+                                .append(this.settings.take_note + '<'+ // Add the take notice feature i.e. * or !
+                                this.settings.message_container +
+                                ' class="'+ this.settings.tooltip_class +'">'+ 
+                                this.settings.message +'</'+ this.settings.message_container +'>');
+                                   
+                        return this.showToolTip();
+                        
 				}, 
                 showToolTip: function() {
                     
-                    var element = this.$element;
-                    var settings = this.settings;
+                    var activeClass = this.settings.activeClass;
+                    var positionClass;
+                    
+                    // Grab the tooltip container by looking at the elements children and finding
+                    // the tag which holds the message i.e. span
+                    var tt_container = this.$element.children(this.settings.message_container);
+                    
+                    
+                    // Grab the current position of the element; adjust the tt position 
+                    // depending on its distance from the left of the screen.
+                      var current_position = this.$element.position();
+                        
+                        if (current_position.left < 515) {
+                            positionClass = 'nstt_left';
+                        }
+                
+                        if (current_position.left > 515) {
+                            positionClass = 'nstt_right';
+                        }
                     
                      // Hover over to display the message, out to hide :D simples
-                    $(element).hover(function(){
-                        
-                        element.children(settings.message_container)
-                                .addClass(settings.activeClass);    
+                    this.$element.hover(function(){
+            
+                        tt_container.addClass(activeClass + ' ' + positionClass);    
                         }, function() {
                             
-                        element.children(settings.message_container)
-                                .removeClass(settings.activeClass);
+                        tt_container.removeClass(activeClass + ' ' + positionClass);
                     });
                 }
 		});
@@ -84,11 +103,11 @@
 		// preventing against multiple instantiations
         
 		$[pluginName] = $.fn[pluginName] = function (options) {
-            if(!(this instanceof $)) { $.extend(defaults, options) }
+            if(!(this instanceof $)) { $.extend(defaults, options); }
 				return this.each(function () {
-						if (!$.data(this, "plugin_" + NoService)) {
-								$.data(this, "plugin_" + pluginName, new NoService(this, options));
-						}
+                    if (!$.data(this, "plugin_" + NoService)) {
+                            $.data(this, "plugin_" + pluginName, new NoService(this, options));
+                    }
 				});
 		};
 

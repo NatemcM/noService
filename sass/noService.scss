@@ -1,33 +1,41 @@
 /*
- * noService Sass - v0.1.0
+ * noService Sass - v0.1.1
  *
  * The complimentary scss for noService JS
  */
  
+ $tt_width:         240px;
+ $tt_color:         #363535;
+ $tt_bg_color:      #ffffff;
+ $tt_border_style:  solid;
+ $tt_border_width:  2px;
+ $tt_border_color:  #bbbbbb;
+ $tt_border_radius: 4px;
+ $tt_position_top:  115%;
 
 .noservice {
     position:relative;
     cursor:pointer;
 }
 
-.tt {
-    width:240px;
+.ns_tt {
+    width:$tt_width;
     padding:8px;
     height:auto;
-    background-color:#ffffff;
-    border:2px solid #BBBBBB;
-    border-radius:4px;
+    background-color:$tt_bg_color;
+    border-width:$tt_border_width;
+    border-style:$tt_border_style;
+    border-color:$tt_border_color;
+    border-radius:$tt_border_radius;
     position:absolute;  
-    top:115%; 
-    left:-50%;
-    color:#363535;
+    top:$tt_position_top; 
+    color:$tt_color;
     display:none;
-    transition:all ease-out 1.2s;
-    
+    z-index:9999;
+
     &:after, 
     &:before {
         bottom: 100%;
-        left: 45%;
         border: solid transparent;
         content: " ";
         height: 0;
@@ -48,6 +56,25 @@
         border-bottom-color: #BBBBBB;
         border-width: 6px;
         margin-left: -6px;
+    }
+}
+
+.nstt_left {
+    left:0;
+    
+    &:after, 
+    &:before {
+        left:15%;
+    }
+}
+
+.nstt_right {
+    right:0;
+    margin-left:$tt_width;
+    
+    &:after, 
+    &:before {
+        left: 85%;
     }
 }
 

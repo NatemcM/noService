@@ -1,5 +1,5 @@
 /*
- * noService Sass - v0.1.0
+ * noService Sass - v0.1.1
  *
  * The complimentary scss for noService JS
  */
@@ -7,39 +7,49 @@
   position: relative;
   cursor: pointer; }
 
-.tt {
+.ns_tt {
   width: 240px;
   padding: 8px;
   height: auto;
   background-color: #ffffff;
-  border: 2px solid #BBBBBB;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #bbbbbb;
   border-radius: 4px;
   position: absolute;
   top: 115%;
-  left: -50%;
   color: #363535;
   display: none;
-  -webkit-transition: all ease-out 1.2s;
-          transition: all ease-out 1.2s; }
-  .tt:after, .tt:before {
+  z-index: 9999; }
+  .ns_tt:after, .ns_tt:before {
     bottom: 100%;
-    left: 45%;
     border: solid transparent;
     content: " ";
     height: 0;
     width: 0;
     position: absolute;
     pointer-events: none; }
-  .tt:after {
+  .ns_tt:after {
     border-color: rgba(207, 207, 207, 0);
     border-bottom-color: #CFCFCF;
     border-width: 4px;
     margin-left: -4px; }
-  .tt:before {
+  .ns_tt:before {
     border-color: rgba(187, 187, 187, 0);
     border-bottom-color: #BBBBBB;
     border-width: 6px;
     margin-left: -6px; }
+
+.nstt_left {
+  left: 0; }
+  .nstt_left:after, .nstt_left:before {
+    left: 15%; }
+
+.nstt_right {
+  right: 0;
+  margin-left: 240px; }
+  .nstt_right:after, .nstt_right:before {
+    left: 85%; }
 
 .active {
   display: block; }
