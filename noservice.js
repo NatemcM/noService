@@ -1,23 +1,11 @@
 /*
- * noService - v0.1.2
+ * noService - v0.1.3
  * 
  * Author: Nathanael McMillan (@nathanael_mcm)
  * noSerice is a simple tooltip/ message alert plugin 
  * to help businesses stay legal when the new OFCOM
  * regulations come into play.
  *
- * Version: 0.1.2
- * Under MIT License
- *
- * Thanks to jQuery-boilerplate for helping with the
- * plugin pattern
- * 
- *  jquery-boilerplate - v3.4.0
- *  A jump-start for jQuery plugins development.
- *  http://jqueryboilerplate.com
- *
- *  Made by Zeno Rocha
- *  Under MIT License
  */
 
 ;(function ( $, window, document, undefined ) {
@@ -40,16 +28,13 @@
 		function NoService ( element, options ) {
 				this.element = element;
                 this.$element = $(element);
-
+				this.window_width = $(window).width();
+				
 				this.settings = $.extend( {}, defaults, options );
 				this._defaults = defaults;
 				this._name = pluginName;
 				this.init();
 		}
-
-
-////// this.settings.noservice_class 
-
 
 		// Avoid Plugin.prototype conflicts
 		$.extend(NoService.prototype, {
@@ -60,8 +45,8 @@
                         this.$element.addClass(this.settings.noservice_class)
                                 .append(this.settings.take_note + '<'+ // Add the take notice feature i.e. * or !
                                 this.settings.message_container +
-                                ' class="'+ this.settings.tooltip_class +'">'+ 
-                                this.settings.message +'</'+ this.settings.message_container +'>');
+                                ' class="'+ this.settings.tooltip_class +'"><p>'+ 
+                                this.settings.message +'</p></'+ this.settings.message_container +'>');
                                    
                         return this.showToolTip();
                         
@@ -78,16 +63,17 @@
                     
                     // Grab the current position of the element; adjust the tt position 
                     // depending on its distance from the left of the screen.
-                      var current_position = this.$element.position();
-                        
-                        if (current_position.left < 515) {
-                            positionClass = 'nstt_left';
-                        }
-                
-                        if (current_position.left > 515) {
-                            positionClass = 'nstt_right';
-                        }
-                    
+                    var current_position = this.$element.position();
+					
+					// Take the window width and divide it in 2 to get the mid point on the
+					// document, if the tooltip is to the left of this line add class nstt_left
+					// and vice versa
+					if (current_position.left < this.window_width / 2 ) {
+						positionClass = 'nstt_left';
+					} else {
+						positionClass = 'nstt_right';
+					}
+						
                      // Hover over to display the message, out to hide :D simples
                     this.$element.hover(function(){
             
